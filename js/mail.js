@@ -24,6 +24,7 @@ var Mail = {
 			$('#searchresults').hide();
 		}
 	},
+    /*jshint maxparams: 6 */
 	BackGround: {
 		showNotification: function (title, body, tag, icon, accountId, folderId) {
 			// notifications not supported -> go away
@@ -43,12 +44,12 @@ var Mail = {
 					icon: icon
 				}
 			);
-			notification.onclick = function(x) {
+			notification.onclick = function() {
 				Mail.UI.loadMessages(accountId, folderId, false);
 				window.focus();
 			};
 			setTimeout(function () {
-				notification.close()
+				notification.close();
 			}, 5000);
 		}, checkForNotifications: function() {
 			_.each(Mail.State.accounts, function (a) {
@@ -85,7 +86,8 @@ var Mail = {
 									// If it's okay let's create a notification
 									var tag = 'not-' + f.accountId + '-' + f.name;
 									var icon = OC.filePath('mail', 'img', 'mail-notification.png');
-									Mail.BackGround.showNotification(localAccount.get('email'), body, tag, icon, f.accountId, f.id);
+									Mail.BackGround.showNotification(localAccount.get('email'), body, tag, icon,
+                                                                     f.accountId, f.id);
 								}
 								// update folder status
 								var localFolder = folders.get(f.id);
